@@ -23,10 +23,15 @@ namespace WinForms
         public const string APP_JSON = "application/json";
 
         public const string RUTA_HEROES = "api/heroes";
+        public const string RUTA_TOKEN = "Token";
+
 
         // ---------------------------------------------
         // Atributos
         // ---------------------------------------------
+
+        public static Sesion Sesion;
+
 
         // ---------------------------------------------
         // Constructor
@@ -34,7 +39,9 @@ namespace WinForms
         public Form1()
         {
             InitializeComponent();
+            Sesion = null;
         }
+
 
         // ---------------------------------------------
         // Métodos
@@ -52,6 +59,8 @@ namespace WinForms
                 client.BaseAddress = new Uri(DIRECCION_SERVIDOR);
                 client.DefaultRequestHeaders.Accept.Clear();
                 client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue(APP_JSON));
+                if(Sesion != null)
+                    client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", Sesion.access_token);
 
                 HttpResponseMessage response = await client.GetAsync(RUTA_HEROES);
                 if (response.IsSuccessStatusCode)
@@ -99,9 +108,11 @@ namespace WinForms
                     client.BaseAddress = new Uri(DIRECCION_SERVIDOR);
                     client.DefaultRequestHeaders.Accept.Clear();
                     client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue(APP_JSON));
+                    if (Sesion != null)
+                        client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", Sesion.access_token);
 
                     Hero heroe = new Hero { Name = form.DarNombre(), Species = form.DarEspecie(), Type = form.DarTipo(), World = form.DarMundo() };
-                    HttpResponseMessage response = await client.PostAsJsonAsync<Hero>(RUTA_HEROES, heroe);
+                    HttpResponseMessage response = await client.PostAsJsonAsync(RUTA_HEROES, heroe);
 
                     if (response.IsSuccessStatusCode)
                     {
@@ -113,7 +124,54 @@ namespace WinForms
             }
         }
 
+        /// <summary>
+        /// Abre un dialogo donde el usuario puede escribir sus credenciales.
+        /// Envía una petición POST con las credenciales proporcionadas. La respuesta 
+        /// contiene un token que se utiliza para comunicarse con el servidor.
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private async void IniciarSesion(object sender, EventArgs e)
+        {
+            FormIniciarSesion dialogo = new FormIniciarSesion();
+
+            if(dialogo.ShowDialog() == DialogResult.OK)
+            {
+                toolStripLabelMensaje.Text = "Iniciando sesión...";
+                using (var client = new HttpClient())
+                {
+                    client.BaseAddress = new Uri(DIRECCION_SERVIDOR);
+                    client.DefaultRequestHeaders.Accept.Clear();
+                    client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/x-www-form-urlencoded"));
 
 
+                    var formContent = new FormUrlEncodedContent(new[]
+                    {
+                        new KeyValuePair<string, string>("grant_type", "password"),
+                        new KeyValuePair<string, string>("username", dialogo.darLogin()),
+                        new KeyValuePair<string, string>("password", dialogo.darcontraseña())
+                    });
+                    HttpResponseMessage response = await client.PostAsync(RUTA_TOKEN, formContent);
+
+                    if (response.IsSuccessStatusCode)
+                    {
+                        Sesion = await response.Content.ReadAsAsync<Sesion>();
+                        //TODO
+                        MessageBox.Show("Inicio de sesión exitoso!", "Inicio de sesión");
+                        toolStripLabelMensaje.Text = "Sesión: " + Sesion.userName;
+
+
+                    }
+                    else
+                    {
+                        MessageBox.Show("No fue posible iniciar sesión.", "Inicio de sesión");
+                        toolStripLabelMensaje.Text = "Se debe iniciar sesión para obtener acceso a los datos.";
+                    }
+                        
+
+
+                }
+            }
+        }
     }
 }

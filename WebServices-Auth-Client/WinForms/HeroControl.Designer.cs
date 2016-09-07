@@ -31,6 +31,7 @@
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(HeroControl));
             this.toolStrip1 = new System.Windows.Forms.ToolStrip();
             this.toolStripLabel1 = new System.Windows.Forms.ToolStripLabel();
+            this.toolStripButtonBorrar = new System.Windows.Forms.ToolStripButton();
             this.textBoxNombre = new System.Windows.Forms.TextBox();
             this.textBoxTipo = new System.Windows.Forms.TextBox();
             this.textBoxEspecie = new System.Windows.Forms.TextBox();
@@ -39,7 +40,6 @@
             this.textBoxMundo = new System.Windows.Forms.TextBox();
             this.buttonVer = new System.Windows.Forms.Button();
             this.buttonEditar = new System.Windows.Forms.Button();
-            this.toolStripButtonBorrar = new System.Windows.Forms.ToolStripButton();
             this.toolStrip1.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -60,6 +60,18 @@
             this.toolStripLabel1.Name = "toolStripLabel1";
             this.toolStripLabel1.Size = new System.Drawing.Size(86, 22);
             this.toolStripLabel1.Text = "toolStripLabel1";
+            // 
+            // toolStripButtonBorrar
+            // 
+            this.toolStripButtonBorrar.Alignment = System.Windows.Forms.ToolStripItemAlignment.Right;
+            this.toolStripButtonBorrar.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Text;
+            this.toolStripButtonBorrar.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Bold);
+            this.toolStripButtonBorrar.Image = ((System.Drawing.Image)(resources.GetObject("toolStripButtonBorrar.Image")));
+            this.toolStripButtonBorrar.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.toolStripButtonBorrar.Name = "toolStripButtonBorrar";
+            this.toolStripButtonBorrar.Size = new System.Drawing.Size(23, 22);
+            this.toolStripButtonBorrar.Text = "X";
+            this.toolStripButtonBorrar.Click += new System.EventHandler(this.toolStripButtonBorrar_Click);
             // 
             // textBoxNombre
             // 
@@ -130,17 +142,6 @@
             this.buttonEditar.Text = "Guardar";
             this.buttonEditar.UseVisualStyleBackColor = true;
             this.buttonEditar.Click += new System.EventHandler(this.buttonEditar_Click);
-            // 
-            // toolStripButtonBorrar
-            // 
-            this.toolStripButtonBorrar.Alignment = System.Windows.Forms.ToolStripItemAlignment.Right;
-            this.toolStripButtonBorrar.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
-            this.toolStripButtonBorrar.Image = ((System.Drawing.Image)(resources.GetObject("toolStripButtonBorrar.Image")));
-            this.toolStripButtonBorrar.ImageTransparentColor = System.Drawing.Color.Magenta;
-            this.toolStripButtonBorrar.Name = "toolStripButtonBorrar";
-            this.toolStripButtonBorrar.Size = new System.Drawing.Size(23, 22);
-            this.toolStripButtonBorrar.Text = "toolStripButton1";
-            this.toolStripButtonBorrar.Click += new System.EventHandler(this.toolStripButtonBorrar_Click);
             // 
             // HeroControl
             // 
