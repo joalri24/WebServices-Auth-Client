@@ -31,13 +31,13 @@
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Form1));
             this.toolStrip1 = new System.Windows.Forms.ToolStrip();
             this.toolStripButtonLogin = new System.Windows.Forms.ToolStripButton();
+            this.toolStripButtonLogout = new System.Windows.Forms.ToolStripButton();
             this.toolStripSeparator1 = new System.Windows.Forms.ToolStripSeparator();
             this.toolStripButtonCargar = new System.Windows.Forms.ToolStripButton();
             this.toolStripButtonAgregar = new System.Windows.Forms.ToolStripButton();
-            this.flowLayoutFondo = new System.Windows.Forms.FlowLayoutPanel();
             this.toolStripSeparator2 = new System.Windows.Forms.ToolStripSeparator();
             this.toolStripLabelMensaje = new System.Windows.Forms.ToolStripLabel();
-            this.toolStripButtonLogout = new System.Windows.Forms.ToolStripButton();
+            this.flowLayoutFondo = new System.Windows.Forms.FlowLayoutPanel();
             this.toolStrip1.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -67,6 +67,17 @@
             this.toolStripButtonLogin.Text = "Iniciar sesión";
             this.toolStripButtonLogin.Click += new System.EventHandler(this.IniciarSesion);
             // 
+            // toolStripButtonLogout
+            // 
+            this.toolStripButtonLogout.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Text;
+            this.toolStripButtonLogout.Enabled = false;
+            this.toolStripButtonLogout.Image = ((System.Drawing.Image)(resources.GetObject("toolStripButtonLogout.Image")));
+            this.toolStripButtonLogout.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.toolStripButtonLogout.Name = "toolStripButtonLogout";
+            this.toolStripButtonLogout.Size = new System.Drawing.Size(79, 22);
+            this.toolStripButtonLogout.Text = "Cerrar sesión";
+            this.toolStripButtonLogout.Click += new System.EventHandler(this.CerrarSesion);
+            // 
             // toolStripSeparator1
             // 
             this.toolStripSeparator1.Name = "toolStripSeparator1";
@@ -92,15 +103,6 @@
             this.toolStripButtonAgregar.Text = "Agregar";
             this.toolStripButtonAgregar.Click += new System.EventHandler(this.AgregarHero);
             // 
-            // flowLayoutFondo
-            // 
-            this.flowLayoutFondo.AutoScroll = true;
-            this.flowLayoutFondo.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.flowLayoutFondo.Location = new System.Drawing.Point(0, 25);
-            this.flowLayoutFondo.Name = "flowLayoutFondo";
-            this.flowLayoutFondo.Size = new System.Drawing.Size(798, 332);
-            this.flowLayoutFondo.TabIndex = 1;
-            // 
             // toolStripSeparator2
             // 
             this.toolStripSeparator2.Name = "toolStripSeparator2";
@@ -114,15 +116,14 @@
             this.toolStripLabelMensaje.Size = new System.Drawing.Size(290, 22);
             this.toolStripLabelMensaje.Text = "Se debe iniciar sesión para obtener acceso a los datos.";
             // 
-            // toolStripButtonLogout
+            // flowLayoutFondo
             // 
-            this.toolStripButtonLogout.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Text;
-            this.toolStripButtonLogout.Enabled = false;
-            this.toolStripButtonLogout.Image = ((System.Drawing.Image)(resources.GetObject("toolStripButtonLogout.Image")));
-            this.toolStripButtonLogout.ImageTransparentColor = System.Drawing.Color.Magenta;
-            this.toolStripButtonLogout.Name = "toolStripButtonLogout";
-            this.toolStripButtonLogout.Size = new System.Drawing.Size(79, 22);
-            this.toolStripButtonLogout.Text = "Cerrar sesión";
+            this.flowLayoutFondo.AutoScroll = true;
+            this.flowLayoutFondo.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.flowLayoutFondo.Location = new System.Drawing.Point(0, 25);
+            this.flowLayoutFondo.Name = "flowLayoutFondo";
+            this.flowLayoutFondo.Size = new System.Drawing.Size(798, 332);
+            this.flowLayoutFondo.TabIndex = 1;
             // 
             // Form1
             // 

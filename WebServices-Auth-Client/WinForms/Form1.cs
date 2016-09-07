@@ -23,6 +23,7 @@ namespace WinForms
         public const string APP_JSON = "application/json";
 
         public const string RUTA_HEROES = "api/heroes";
+        public const string RUTA_LOGOUT = "api/Account/Logout";
         public const string RUTA_TOKEN = "Token";
 
 
@@ -156,9 +157,9 @@ namespace WinForms
                     if (response.IsSuccessStatusCode)
                     {
                         Sesion = await response.Content.ReadAsAsync<Sesion>();
-                        //TODO
                         MessageBox.Show("Inicio de sesión exitoso!", "Inicio de sesión");
                         toolStripLabelMensaje.Text = "Sesión: " + Sesion.userName;
+                        toolStripButtonLogout.Enabled = true;
 
 
                     }
@@ -173,5 +174,41 @@ namespace WinForms
                 }
             }
         }
+
+
+        /// <summary>
+        /// Cierra la sesión, eliminando el token y enviando la petición 
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private async void CerrarSesion(object sender, EventArgs e)
+        {
+
+            if (Sesion != null)
+            {
+                using (var client = new HttpClient())
+                {
+                    client.BaseAddress = new Uri(DIRECCION_SERVIDOR);
+                    client.DefaultRequestHeaders.Accept.Clear();
+                    if (Sesion != null)
+                        client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", Sesion.access_token);
+
+                    HttpResponseMessage response = await client.PostAsync(RUTA_LOGOUT, null);
+
+                    if (response.IsSuccessStatusCode)
+                    {
+                        Sesion = null;
+                        flowLayoutFondo.Controls.Clear();
+                        toolStripButtonLogout.Enabled = false;
+                        toolStripLabelMensaje.Text = "Se debe iniciar sesión para obtener acceso a los datos.";
+                    }
+                    else
+                    {
+                        toolStripLabelMensaje.Text = "No fue posible cerrar sesión.";
+                    }
+                }
+            }
+        }
+
     }
 }
